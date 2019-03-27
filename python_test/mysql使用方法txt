@@ -1,0 +1,23 @@
+import pymysql
+
+import pymysql.cursors
+
+
+
+class NEWinsertsqlPipline(object):
+    def __init__(self):
+        self.db=pymysql.connect(host='127.0.0.1',port=3339,db='test',user='root',password='root')
+        self.cur=self.db.cursor()
+
+    def process_item(self, item, spider):
+        insert_sql='''insert into jobbler(id,title,datelist,category,mainbody,zang,sc,pl,image_list_url,image_list_path) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
+        parmer=item['image_list_id'],item['title'],item['datelist'],item['category'],item['mainbody'],item['zang'],item['pl'],item['image_list_url'],item['image_list_path']
+        try:
+            self.cur.execute(insert_sql,parmer)
+            print('ok')
+            self.db.commit()
+            return item
+        except:
+            self.db.rollback()
+    def close_sql(self):
+        self.db.close()
