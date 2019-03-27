@@ -21,3 +21,9 @@ class NEWinsertsqlPipline(object):
             self.db.rollback()
     def close_sql(self):
         self.db.close()
+
+
+http://www.runoob.com/python3/python3-mysql.html
+https://blog.csdn.net/lmb1612977696/article/details/78166180
+https://www.cnblogs.com/gyf-strive/p/5282329.html
+https://www.cnblogs.com/chongdongxiaoyu/p/8951433.html
