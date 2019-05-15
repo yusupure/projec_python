@@ -1,0 +1,332 @@
+#菱形
+n=7
+e=n//2
+for i in range(-e,n-e):
+    if i<0:
+        i=-i
+    print(' '*i+'*'*(n-2*i)+' '*i)
+print('#'*100)
+for i in range(-e,n-e):
+    if i<0:
+        i=-i
+    print(' '*(e-i)+'*'*(i*2+1)+' '*(e-i))
+print('#'*100)
+for i in range(-e,n-e):
+    if i<0:
+        i=-i
+        print(' '*(i)+'*'*(e-i+1))
+    elif i==0:
+        print('*'*7)
+    else:
+        print(' '*e+'*'*(e-i+1)+' '*(e-i))
+
+print('#'*100)
+x=[1,9,8,6,7,5,3,2,4]
+legh=len(x)
+for i in range(legh):
+    for j in range(legh-1):
+        if x[j]>x[j+1]:
+            x[j],x[j+1]=x[j+1],x[j]
+print(x)
+
+print('#'*100)
+#矩形转换
+xd=[[1,2,3],[4,5,6],[7,8,9]]
+for i in range(len(xd)):
+    for j in range(i):
+        xd[i][j],xd[j][i]=xd[j][i],xd[i][j]
+print(xd)
+
+
+print('#'*100)
+xd=[[1,2,3],[4,5,6]]
+row=[]
+for i in xd:
+    for j in range(len(xd[0])):
+        if len(row)<j+1:
+            row.append([])
+        row[j].append(i[j])
+print(row)
+
+print('#'*100)
+xd=[[1,2,3],[4,5,6]]
+row=[[0 for i in range(2)] for j in range(3)]
+print(row)
+for i in range(len(xd)+1):
+    for j in range(len(xd[0])-1):
+        row[i][j]=xd[j][i]
+print(row)
+
+
+#杨辉三角1
+print('#'*100)
+n=6
+yh=[[1],[1,1]]
+
+for i in range(2,n):
+    yj2=yh[i-1]
+    row=[1]
+    for j in range(i-1):
+        row.append(yj2[j]+yj2[j+1])
+    row.append(1)
+    yh.append(row)
+print(yh)
+
+print('#'*100)
+#杨辉三角2
+row1=[]
+for i in range(n):
+    xx=[1]*(i+1)
+    row1.append(xx)
+    if i==0:
+        continue
+    for j in range(1,i//2+1):
+        val=row1[i-1][j]+row1[i-1][j-1]
+        xx[j]=val
+        if j!=j-i:
+            xx[-j-1]=val
+
+print(row1)
+print('#'*100)
+#杨辉三角3
+row1=[]
+for i in range(n):
+    #xx=[1]*(i+1)
+    xx = [1]
+    for k in range(i):
+        xx.append(1) if k==i-1 else xx.append(0)
+    row1.append(xx)
+    if i==0:
+        continue
+    for j in range(1,i//2+1):
+        val=row1[i-1][j]+row1[i-1][j-1]
+        xx[j]=val
+        if j!=j-i:
+            xx[-j-1]=val
+
+print(row1)
+
+print('#'*100)
+x=[1,9,8,6,7,5,3,2,4]
+legh=len(x)
+for i in range(legh):
+    maxindex=i
+    for j in range(i+1,legh):
+        if x[maxindex]<x[j]:
+            maxindex=j
+    if i!=maxindex:
+        x[maxindex],x[i]=x[i],x[maxindex]
+print(x)
+
+
+print('#'*100)
+x=[1,9,8,6,7,5,3,2,4]
+legh=len(x)
+for i in range(legh//2):
+    maxindex=i
+    minindex=-i-1
+    morging=minindex
+    for j in range(i+1,legh-i):
+        if x[maxindex]<x[j]:
+            maxindex=j
+        if x[minindex]>x[-j-1]:
+            minindex=-j-1
+    if i==minindex or i==legh+minindex:
+        minindex=maxindex
+    if i!=maxindex:
+        x[maxindex],x[i]=x[i],x[maxindex]
+    if morging!=minindex:
+        x[morging],x[minindex]=x[minindex],x[morging]
+print(x)
+
+print('#'*100)
+# for i in range(1,10):
+#     s=''
+#     for j in range(1,i+1):
+#         s+=str(i)+'*'+str(j)+'='+str(i*j)+' '
+#     print(s)
+
+print('#'*100)
+for i in range(1,10):
+    print(' '*7*(i-1),end='')
+    for j in range(1,10):
+        if i*j<10:
+            end='  '
+        else:
+            end=' '
+        if j+1>i:
+            print(str(j)+'*'+str(i)+'='+str(i*j),end=end)
+    print()
+
+# #用户输入一个数字
+# 打印每一位数字及重复次数
+nums='1233452'
+xd={}
+for i in range(len(nums)):
+    if nums[i] not in xd:
+        xd[nums[i]]=1
+    else:
+        xd[nums[i]]+=1
+print(xd)
+# #数字重复统计
+# 随机产生100个整数
+# 数字范围-1000 -1000
+# 升序输出所有不同数字及其重复次数
+import random
+from collections import OrderedDict
+nums1=[ random.randint(-1000,1000) for i in range(100)]
+dis={}
+for i in range(len(nums1)):
+    if nums1[i] not in dis:
+        dis[nums1[i]]=1
+    else:
+        dis[nums1[i]]+=1
+disx = sorted(dis.items(), key=lambda dis: dis[0], reverse=False)
+print(disx)
+dis1=OrderedDict()
+for disn in disx:
+    dis1[disn[0]]=dis[disn[0]]
+print(dis1)
+
+#
+# #字符串重复统计
+# 字符串A-A-Z
+# 随机挑选2个字母组成字符串，共调100个
+# 见徐输出100个字符串重复次数
+str1='abcdefghijklmnopqrstuvxyz'
+dic={}
+x=[random.choice(str1)+random.choice(str1) for i in range(100)]
+for i in range(len(x)):
+    if x[i] not in dic:
+        dic[x[i]]=1
+    else:
+        dic[x[i]]+=1
+dic1=OrderedDict()
+for dicn in dic:
+    dic1[dicn]=dic[dicn]
+print(dic1)
+dix=sorted(dic.items(),key=lambda dic:dic,reverse=True)
+print(dix)
+
+
+print('x'*120)
+
+str1='abcdefghijklmnopqrstuvxyz'
+print(len(str1))
+dicstrx={}
+strlist=[]
+for i in range(100):
+    x = random.randint(0, len(str1))
+    y = random.randint(0, len(str1))
+    strtest=[]
+    for j in range(1):
+        a=str(str1[x-1]+str1[y-1])
+        strtest.append(a)
+    strlist.append(strtest)
+
+for z in range(len(strlist)):
+    if strlist[z][0] not in dicstrx:
+        dicstrx[strlist[z][0]]=1
+    else:
+        dicstrx[strlist[z][0]] += 1
+print(dicstrx)
+
+
+print('x'*120)
+x=[1,9,8,6,7,5,3,2,4]
+leng=len(x)
+for i in range(leng):
+    maxindex=i
+    minindex=-i-1
+    morg=minindex
+    for j in range(i+1,leng-i):
+        if x[maxindex]<x[j]:
+            maxindex=j
+        if x[minindex]>x[-j-1]:
+            minindex=-j-1
+    if i==minindex or i==leng+minindex:
+        minindex=maxindex
+    if i!=maxindex:
+        x[i],x[maxindex]=x[maxindex],x[i]
+    if morg!=minindex:
+        x[morg],x[minindex]=x[minindex],x[morg]
+print(x)
+print('x'*120)
+# #用户输入一个数字
+# 打印每一位数字及重复次数
+numx='1233442'
+numtotoal=len(numx)
+disct={}
+for i in range(numtotoal):
+    if numx[i] not in disct:
+        disct[numx[i]]=1
+    else:
+        disct[numx[i]]+=1
+print(disct)
+# #数字重复统计
+# 随机产生100个整数
+# 数字范围-1000 -1000
+# 升序输出所有不同数字及其重复次数
+oem=[random.randint(-1000,1000) for i in range(10)]
+numt=len(oem)
+dicts={}
+for i in range(numt):
+    if oem[i] not in dicts:
+        dicts[oem[i]]=1
+    else:
+        dicts[oem[i]]+=1
+od=OrderedDict()
+print(dicts)
+for dictsx in dicts:
+    od[dictsx]=dicts[dictsx]
+print(od)
+ox=sorted(dicts.items(),key=lambda dicts:dicts,reverse=False)
+print(ox)
+# #字符串重复统计
+# 字符串A-A-Z
+# 随机挑选2个字母组成字符串，共调100个
+# 见徐输出100个字符串重复次数
+strx='abcdefghijklmnopqrstuvxyz'
+xstr=[random.choice(strx)+random.choice(strx) for i in range(20)]
+xd={}
+print(xstr)
+for i in range(len(xstr)):
+    if xstr[i] not in xd:
+        xd[xstr[i]]=1
+    else:
+        xd[xstr[i]]+=1
+print(xd)
+
+print('x'*100)
+bx=[1,9,6,3,8,5,4,7,2]
+nx=len(bx)
+for i in range(nx):
+    maxindex=i
+    minindex=-i-1
+    morx=minindex
+    for j in range(i+1,nx-i):
+        if bx[maxindex]<bx[j]:
+            maxindex=j
+        if bx[morx]>bx[-j-1]:
+            minindex=-j-1
+    if i==minindex or i==nx+minindex:
+        minindex=maxindex
+    if i!=maxindex:
+        bx[i],bx[maxindex]=bx[maxindex],bx[i]
+    if morx!=minindex:
+        bx[morx],bx[minindex]=bx[minindex],bx[morx]
+print(bx)
+
+print('x'*100)
+xp=[1]
+for i in range(10):
+    xp=[1]+[xp[j]+xp[j+1] for j in range(len(xp)-1)]+[1]
+    print(xp)
+
+#列推导
+#0-9数据。并相乘后反悔原来列表中
+xx=[[j*j] for j in range(10)]
+print(xx)
+
+
+xd=[[1,2,3],[4,5,6]]
