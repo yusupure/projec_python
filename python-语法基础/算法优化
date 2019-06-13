@@ -356,3 +356,40 @@ print(x)
 
 
 print('\n'.join([ ''.join([('*' if ((j*0.05)**2+(i*0.1)**2-1)**3-(j*0.05)**2*(i*0.1)**3 <=0 else ' ')  for j in range(-30,30)]) for i in range(15,-15,-1)]))
+
+
+base64自建
+aphbet=b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-"
+def base64(src):
+    ret=bytearray()
+    lenght=len(src)
+    r=0
+    for offset in range(0,lenght,3):
+        if offset+3<=lenght:
+            triple=src[offset:offset+3]
+        else:
+            triple=src[offset:]
+            r=3-len(triple)
+            triple=triple+'\x00'*r
+            print(triple)
+        b=int.from_bytes(triple.encode(),'big')
+        print(b)
+        for i in range(18,-1,-6):
+            if i==18:
+                index=b>>i
+            else:
+                index=b>>i & 0x3F
+            ret.append(aphbet[index])
+            print(ret,index)
+        for i in range(1,r+1):
+            ret[-i]=0x3D
+            print(ret)
+    return bytes(ret)
+print(base64('abcd'))
+
+import base64
+print(base64.b64encode('abcd'.encode()))
+
+
+
+
