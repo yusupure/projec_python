@@ -1,152 +1,134 @@
-#菱形
 n=7
 e=n//2
-for i in range(-e,n-e):
-    if i<0:
-        i=-i
-    print(' '*i+'*'*(n-2*i)+' '*i)
-print('#'*100)
-for i in range(-e,n-e):
-    if i<0:
-        i=-i
-    print(' '*(e-i)+'*'*(i*2+1)+' '*(e-i))
-print('#'*100)
-for i in range(-e,n-e):
-    if i<0:
-        i=-i
-        print(' '*(i)+'*'*(e-i+1))
-    elif i==0:
-        print('*'*7)
-    else:
-        print(' '*e+'*'*(e-i+1)+' '*(e-i))
 
-print('#'*100)
+for i in range(-e,n-e):
+    if i<0:
+        i=-i
+    print(' '*i+'*'*(n-i*2)+' '*i)
+
+for i in range(-e,n-e):
+    if i < 0:
+        i = -i
+    print(' '*(e-i)+'*'*(i*2+1)+' '*(e-i))
+
+for i in range(-e,n-e):
+    if i < 0:
+        print(' '*-i+'*'*(4+i))
+    if i==0:
+        print('*'*7)
+    if i>0:
+        print(' '*3+'*'*(4-i)+' '*i)
+
+print('*'*90)
+
+print('交换1')
 x=[1,9,8,6,7,5,3,2,4]
-legh=len(x)
-for i in range(legh):
-    for j in range(legh-1):
+lex=len(x)
+for i in range(lex):
+    for j in range(lex-1):
         if x[j]>x[j+1]:
-            x[j],x[j+1]=x[j+1],x[j]
+            x[j], x[j + 1]=x[j + 1],x[j]
 print(x)
 
-print('#'*100)
-#矩形转换
+print('交换2')
+for i in range(lex//2):
+    maxindex=i
+    minindex=-i-1
+    morg=minindex
+    for j in range(i+1,lex-1):
+        if x[maxindex]>x[j]:
+            maxindex=j
+        if x[minindex]<x[-j-1]:
+            minindex=-j-1
+    if i==minindex or i==lex+minindex:
+        minindex=maxindex
+    if i!=maxindex:
+        x[i],x[maxindex]=x[maxindex],x[i]
+    if morg!=minindex:
+        x[morg],x[minindex]=x[minindex],x[morg]
+print(x)
+
+print('交换3')
+x2=[1,9,8,6,7,5,3,2,4]
+x1=[0]+x2
+def fa(src):
+    for i in range(2,len(src)):
+        src[0]=src[i]
+        j=i-1
+        while src[j]>src[0]:
+            #print(src,'xxxxx')
+            src[j+1]=src[j]
+            #print(src)
+            j-=1
+        src[j+1]=src[0]
+    return src
+print(fa(x1))
+
+
+
+print('*'*90)
+print()
+
+print('变换矩形1')
 xd=[[1,2,3],[4,5,6],[7,8,9]]
 for i in range(len(xd)):
     for j in range(i):
         xd[i][j],xd[j][i]=xd[j][i],xd[i][j]
 print(xd)
-
-
-print('#'*100)
+print('变换矩形2')
 xd=[[1,2,3],[4,5,6]]
-row=[]
+xb=[[0 for j in range(2)]for i in range(3)]
+for i in range(3):
+    for j in range(2):
+        xb[i][j]=xd[j][i]
+print(xb)
+print('变换矩形3')
+
+xx=[]
 for i in xd:
-    for j in range(len(xd[0])):
-        if len(row)<j+1:
-            row.append([])
-        row[j].append(i[j])
-print(row)
+    for j in range(len(xd)+1):
+        if len(xx)<j+1:
+            xx.append([])
+        xx[j].append(i[j])
+print(xx)
 
-print('#'*100)
-xd=[[1,2,3],[4,5,6]]
-row=[[0 for i in range(2)] for j in range(3)]
-print(row)
-for i in range(len(xd)+1):
-    for j in range(len(xd[0])-1):
-        row[i][j]=xd[j][i]
-print(row)
+print('变换矩形3')
+xd1=[[1,2,3],[4,5,6]]
+xx1=[]
+for i in range(len(xd1[0])):
+    row=[]
+    for j in range(len(xd1)):
+        row.append(xd1[j][i])
+    xx1.append(row)
+print(xx1)
 
+print('*'*90)
+print()
+print('杨辉三角1')
+x=[1]
+for i in range(6):
+    x=[1]+[x[j]+x[j+1] for j in range(i)]+[1]
+    print(x)
 
-#杨辉三角1
-print('#'*100)
-n=6
-yh=[[1],[1,1]]
-
-for i in range(2,n):
-    yj2=yh[i-1]
-    row=[1]
-    for j in range(i-1):
-        row.append(yj2[j]+yj2[j+1])
-    row.append(1)
-    yh.append(row)
-print(yh)
-
-print('#'*100)
-#杨辉三角2
-row1=[]
-for i in range(n):
-    xx=[1]*(i+1)
-    row1.append(xx)
+print('杨辉三角2')
+b=[]
+for i in range(6):
+    x=[1]*(i+1)
+    b.append(x)
     if i==0:
         continue
     for j in range(1,i//2+1):
-        val=row1[i-1][j]+row1[i-1][j-1]
-        xx[j]=val
+        val=b[i-1][j]+b[i-1][j-1]
+        x[j]=val
         if j!=j-i:
-            xx[-j-1]=val
-
-print(row1)
-print('#'*100)
-#杨辉三角3
-row1=[]
-for i in range(n):
-    #xx=[1]*(i+1)
-    xx = [1]
-    for k in range(i):
-        xx.append(1) if k==i-1 else xx.append(0)
-    row1.append(xx)
-    if i==0:
-        continue
-    for j in range(1,i//2+1):
-        val=row1[i-1][j]+row1[i-1][j-1]
-        xx[j]=val
-        if j!=j-i:
-            xx[-j-1]=val
-
-print(row1)
-
-print('#'*100)
-x=[1,9,8,6,7,5,3,2,4]
-legh=len(x)
-for i in range(legh):
-    maxindex=i
-    for j in range(i+1,legh):
-        if x[maxindex]<x[j]:
-            maxindex=j
-    if i!=maxindex:
-        x[maxindex],x[i]=x[i],x[maxindex]
-print(x)
+            x[-j]=val
+print(b)
 
 
-print('#'*100)
-x=[1,9,8,6,7,5,3,2,4]
-legh=len(x)
-for i in range(legh//2):
-    maxindex=i
-    minindex=-i-1
-    morging=minindex
-    for j in range(i+1,legh-i):
-        if x[maxindex]<x[j]:
-            maxindex=j
-        if x[minindex]>x[-j-1]:
-            minindex=-j-1
-    if i==minindex or i==legh+minindex:
-        minindex=maxindex
-    if i!=maxindex:
-        x[maxindex],x[i]=x[i],x[maxindex]
-    if morging!=minindex:
-        x[morging],x[minindex]=x[minindex],x[morging]
-print(x)
+print('*'*90)
+print()
+print('99乘法表')
 
-print('#'*100)
-# for i in range(1,10):
-#     s=''
-#     for j in range(1,i+1):
-#         s+=str(i)+'*'+str(j)+'='+str(i*j)+' '
-#     print(s)
-
-print('#'*100)
 for i in range(1,10):
     print(' '*7*(i-1),end='')
     for j in range(1,10):
@@ -154,241 +136,328 @@ for i in range(1,10):
             end='  '
         else:
             end=' '
-        if j+1>i:
-            print(str(j)+'*'+str(i)+'='+str(i*j),end=end)
+        if i<j+1:
+            print('{}*{}={}'.format(i,j,i*j),end=end)
     print()
 
-# #用户输入一个数字
-# 打印每一位数字及重复次数
+print('*'*90)
+print()
+print('相同字符计算')
 nums='1233452'
-xd={}
+des={}
 for i in range(len(nums)):
-    if nums[i] not in xd:
-        xd[nums[i]]=1
+    if nums[i] not in des:
+        des[nums[i]]=1
     else:
-        xd[nums[i]]+=1
-print(xd)
-# #数字重复统计
-# 随机产生100个整数
-# 数字范围-1000 -1000
-# 升序输出所有不同数字及其重复次数
+        des[nums[i]]+=1
+print(des)
+
+print('*'*90)
+print()
+print('相同字符计算')
 import random
 from collections import OrderedDict
-nums1=[ random.randint(-1000,1000) for i in range(100)]
-dis={}
-for i in range(len(nums1)):
-    if nums1[i] not in dis:
-        dis[nums1[i]]=1
+nums=[random.randint(-1000,1000) for i in range(10)]
+print(nums)
+bbd={}
+for i in range(len(nums)):
+    if nums[i] not in bbd:
+        bbd[nums[i]]=1
     else:
-        dis[nums1[i]]+=1
-disx = sorted(dis.items(), key=lambda dis: dis[0], reverse=False)
-print(disx)
-dis1=OrderedDict()
-for disn in disx:
-    dis1[disn[0]]=dis[disn[0]]
-print(dis1)
+        bbd[nums[i]]+=1
 
-#
-# #字符串重复统计
-# 字符串A-A-Z
-# 随机挑选2个字母组成字符串，共调100个
-# 见徐输出100个字符串重复次数
-str1='abcdefghijklmnopqrstuvxyz'
-dic={}
-x=[random.choice(str1)+random.choice(str1) for i in range(100)]
-for i in range(len(x)):
-    if x[i] not in dic:
-        dic[x[i]]=1
-    else:
-        dic[x[i]]+=1
-dic1=OrderedDict()
-for dicn in dic:
-    dic1[dicn]=dic[dicn]
-print(dic1)
-dix=sorted(dic.items(),key=lambda dic:dic,reverse=True)
-print(dix)
+ppt=OrderedDict()
+for zt in bbd:
+    ppt[zt]=bbd[zt]
+print(ppt)
 
+xt=sorted(bbd.items(),key=lambda bbd:bbd,reverse=True)
+print(xt)
 
-print('x'*120)
-
-str1='abcdefghijklmnopqrstuvxyz'
-print(len(str1))
-dicstrx={}
-strlist=[]
-for i in range(100):
-    x = random.randint(0, len(str1))
-    y = random.randint(0, len(str1))
-    strtest=[]
-    for j in range(1):
-        a=str(str1[x-1]+str1[y-1])
-        strtest.append(a)
-    strlist.append(strtest)
-
-for z in range(len(strlist)):
-    if strlist[z][0] not in dicstrx:
-        dicstrx[strlist[z][0]]=1
-    else:
-        dicstrx[strlist[z][0]] += 1
-print(dicstrx)
-
-
-print('x'*120)
-x=[1,9,8,6,7,5,3,2,4]
-leng=len(x)
-for i in range(leng):
-    maxindex=i
-    minindex=-i-1
-    morg=minindex
-    for j in range(i+1,leng-i):
-        if x[maxindex]<x[j]:
-            maxindex=j
-        if x[minindex]>x[-j-1]:
-            minindex=-j-1
-    if i==minindex or i==leng+minindex:
-        minindex=maxindex
-    if i!=maxindex:
-        x[i],x[maxindex]=x[maxindex],x[i]
-    if morg!=minindex:
-        x[morg],x[minindex]=x[minindex],x[morg]
-print(x)
-print('x'*120)
-# #用户输入一个数字
-# 打印每一位数字及重复次数
-numx='1233442'
-numtotoal=len(numx)
-disct={}
-for i in range(numtotoal):
-    if numx[i] not in disct:
-        disct[numx[i]]=1
-    else:
-        disct[numx[i]]+=1
-print(disct)
-# #数字重复统计
-# 随机产生100个整数
-# 数字范围-1000 -1000
-# 升序输出所有不同数字及其重复次数
-oem=[random.randint(-1000,1000) for i in range(10)]
-numt=len(oem)
-dicts={}
-for i in range(numt):
-    if oem[i] not in dicts:
-        dicts[oem[i]]=1
-    else:
-        dicts[oem[i]]+=1
-od=OrderedDict()
-print(dicts)
-for dictsx in dicts:
-    od[dictsx]=dicts[dictsx]
-print(od)
-ox=sorted(dicts.items(),key=lambda dicts:dicts,reverse=False)
-print(ox)
-# #字符串重复统计
-# 字符串A-A-Z
-# 随机挑选2个字母组成字符串，共调100个
-# 见徐输出100个字符串重复次数
-strx='abcdefghijklmnopqrstuvxyz'
-xstr=[random.choice(strx)+random.choice(strx) for i in range(20)]
-xd={}
-print(xstr)
-for i in range(len(xstr)):
-    if xstr[i] not in xd:
-        xd[xstr[i]]=1
-    else:
-        xd[xstr[i]]+=1
-print(xd)
-
-print('x'*100)
-bx=[1,9,6,3,8,5,4,7,2]
-nx=len(bx)
-for i in range(nx):
-    maxindex=i
-    minindex=-i-1
-    morx=minindex
-    for j in range(i+1,nx-i):
-        if bx[maxindex]<bx[j]:
-            maxindex=j
-        if bx[morx]>bx[-j-1]:
-            minindex=-j-1
-    if i==minindex or i==nx+minindex:
-        minindex=maxindex
-    if i!=maxindex:
-        bx[i],bx[maxindex]=bx[maxindex],bx[i]
-    if morx!=minindex:
-        bx[morx],bx[minindex]=bx[minindex],bx[morx]
-print(bx)
-
-print('x'*100)
-xp=[1]
-for i in range(10):
-    xp=[1]+[xp[j]+xp[j+1] for j in range(len(xp)-1)]+[1]
-    print(xp)
-
-#列推导
-#0-9数据。并相乘后反悔原来列表中
-xx=[[j*j] for j in range(10)]
-print(xx)
-
-#00 10
-#01 11
-#02 12
-xd=[[1,2,3],[4,5,6]]
-xb=[]
-for i in range(len(xd[0])):
-    row=[]
-    for j in range(len(xd[0])-1):
-        row.append(xd[j][i])
-    xb.append(row)
-print(xb)
-
-
-
-#解析列表方式
-xx=([''.join(['{}*{}={}{}'.format(j,i,i*j,'  ' if i*j<10 else ' ') for i in range(1,10) if j<i+1]) for j in range(1,10)])
-for i in range(len(xx)):
-    print(' '*7*i,xx[i])
-
-
+desa={}
 bt='abcdefghijklmnopqrstuvxyz'
-x=['{:>04}.{}'.format(i,''.join([random.choice(bt) for j in range(10)])) for i in range(1,10) ]
-print(x)
+xt=[random.choice(bt)+random.choice(bt) for i in range(10)]
+for i in xt:
+    if i not in desa:
+        desa[i]=1
+    else:
+        desa[i]+=1
+print(desa)
 
 
+print('*'*90)
+print()
+print('心形打印')
+
+xxing='\n'.join([''.join([('*' if ((j*0.05)**2+(i*0.1)**2-1)**3-(j*0.05)**2*(i*0.1)**3 <=0 else ' ')  for j in range(-30,30)]) for i in range(12,-12,-1)])
+print(xxing)
 
 
-print('\n'.join([ ''.join([('*' if ((j*0.05)**2+(i*0.1)**2-1)**3-(j*0.05)**2*(i*0.1)**3 <=0 else ' ')  for j in range(-30,30)]) for i in range(15,-15,-1)]))
-
-
-base64自建
-aphbet=b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-"
-def base64(src):
-    ret=bytearray()
-    lenght=len(src)
-    r=0
-    for offset in range(0,lenght,3):
-        if offset+3<=lenght:
-            triple=src[offset:offset+3]
+print('*'*90)
+print()
+print('梯形打印')
+nums=12
+for i in range(1,nums+1):
+    for j in range(nums,0,-1):
+        if i<j:
+            print(' '*len(str(j)),end=' ')
         else:
-            triple=src[offset:]
-            r=3-len(triple)
-            triple=triple+'\x00'*r
-            print(triple)
-        b=int.from_bytes(triple.encode(),'big')
-        print(b)
+            print(j,end=' ')
+    print()
+
+tail=' '.join([str(i) for i in range(nums,0,-1) ])
+for i in range(1,nums):
+    print('{:>{}}'.format(' '.join([str(j) for j in range(i,0,-1)]),len(tail)))
+print(tail)
+print('*'*90)
+print(tail)
+for i in range(len(tail)):
+    if tail[i]==' ':
+        print(' '*i,tail[i+1:])
+
+
+print('*'*90)
+print()
+print('递归阶乘')
+n=5
+def jc(n):
+    if n==1:
+        return 1
+    return n*jc(n-1)
+print(jc(n))
+
+print('猴子吃桃')
+n=10
+def monkey(n,x):
+    if n==1:
+        return x
+    return monkey(n-1,(x+1)*2)
+print(monkey(n,1))
+
+print('费波那奇数列')
+pre=0
+cur=1
+n=10
+def fbnk(n,pre,cur):
+    pre,cur=cur,pre+cur
+    if n==1:
+        return cur
+    return fbnk(n-1,pre,cur)
+
+print(fbnk(n,pre,cur))
+
+print('字符串转换')
+x=[]
+abc='1234'
+def ads(n):
+
+    if n<0:
+        return ' '
+    x.append(abc[n])
+    return abc[n]+ads(n-1)
+print(ads(len(abc)-1))
+
+print('*'*90)
+print()
+print('递归遍历扁平化字典输出')
+src = {'a': {'b': 1, 'c': 2}, 'd': {'e': 3, 'f': {'g': 4}}}
+def pdk(src,keys='',des={}):
+    for k,v in src.items():
+        if isinstance(v,dict):
+            pdk(v,keys+k+'.')
+        else:
+            des[keys+k]=v
+    return des
+print(pdk(src))
+
+print('base64')
+import string
+ac=string.ascii_letters+string.digits+'+'+'/'
+ac=str.encode(ac)
+def base64(src):
+    r=0
+    res=bytearray()
+    for offset in range(0,len(src),3):
+        if offset+3<len(src):
+            tp=src[offset:offset+3]
+        else:
+            tp=src[offset:]
+            r=3-len(tp)
+            tp=tp+'/x00'*r
+        b=int.from_bytes(tp.encode(),'big')
         for i in range(18,-1,-6):
-            if i==18:
-                index=b>>i
-            else:
-                index=b>>i & 0x3F
-            ret.append(aphbet[index])
-            print(ret,index)
-        for i in range(1,r+1):
-            ret[-i]=0x3D
-            print(ret)
-    return bytes(ret)
+            index=b>>i & 0x3F
+            res.append(ac[index])
+        for j in range(1,r+1):
+            res[-j]=0x3D
+    return bytes(res)
+
 print(base64('abcd'))
 
-import base64
-print(base64.b64encode('abcd'.encode()))
+
+print('公共字符串1')
+str1='abcdefg'
+str2='efgabcd'
+lenstr1=len(str1)
+lenstr2=len(str2)
+maxindex=0
+p=0
+xbs=[[0 for j in range(lenstr1+2)]for i in range(lenstr2+2)]
+for i in range(lenstr1):
+    for j in range(lenstr2):
+        if str1[i]==str2[j]:
+            xbs[i+1][j+1]=xbs[i][j]+1
+        if xbs[i+1][j+1]>maxindex:
+            maxindex=xbs[i+1][j+1]
+            p+=1
+
+print(str1[p-maxindex:p])
+
+print('公共字符串2')
+def bbk(str1,str2):
+    for i in range(lenstr1,0,-1):
+        for j in range(0,lenstr2-i+1):
+            res1=str1[j:i+j]
+            #print(res1)
+            if str2.find(res1)>-1:
+                 return res1
+print(bbk(str1,str2))
+
+print('公共字符串3')
+def bbd(str1,str2):
+    b=[]
+    maxindex=0
+    indexx=0
+    for i,x in enumerate(str1):
+        b.append([])
+        for j,y in enumerate(str2):
+            if x!=y:
+                b[i].append(0)
+            else:
+                if i==0 or j==0:
+                    b[i].append(1)
+                else:
+                    b[i].append(b[i-1][j-1]+1)
+                    if b[i][j]>maxindex:
+                        maxindex=b[i][j]
+                        indexx=j
+                        indexx+=1
+    print(str2[indexx-maxindex:indexx])
+
+
+bbd(str1,str2)
+
+
+print('*'*90)
+print()
+print('堆排序')
+
+def print_tree(origin):
+    lcx=2**h-1
+    for i in range(1,lcx+1):
+        times=2**(i-1)
+        for j in range(times-1,times*2-1):
+            if i<j:break
+            print('{:^{}}'.format(origin[1:][j],lcx*2),end=' '*2)
+        print()
+        lcx//=2
+
+def print_tree2(origin):
+    lcx = 2 ** h - 1
+    index=1
+    for i in range(h):
+        for j in range(2**i):
+            print('{:^{}}'.format(origin[index],lcx*2),end=' '*2)
+            index += 1
+            if index < j: break
+        print()
+        lcx//=2
+
+origin = [0,30, 20, 80, 40, 50, 10, 60, 70, 90]
+lenght=len(origin)-1
+h=lenght//2
+
+def heap_sort(origin,lenght,i):
+    while 2*i<lenght:
+        lc=2*i
+        maxd=lc
+        if lc<lenght and origin[maxd+1]>origin[lc]:
+            maxd=lc+1
+        if origin[maxd]>origin[i]:
+            origin[maxd] ,origin[i]=origin[i],origin[maxd]
+            i=maxd
+        else:
+            break
+    return origin
+
+
+def heap_set(origin,lenght):
+    for i in range(lenght//2,0,-1):
+        heap_sort(origin,lenght,i)
+    return origin
+
+
+print_tree2(heap_set(origin,lenght))
+
+
+print('*'*90)
+print()
+print('自检缓冲区')
+#自检缓冲区
+import inspect
+import datetime
+from functools import wraps
+import time
+def m_cathe(fn):
+    local_dict={}
+    @wraps(fn)
+    def wrapper(*args,**kwargs):
+        print(args,kwargs)
+        res=fn(*args,**kwargs)
+        sig=inspect.signature(fn)
+        parmer=sig.parameters
+        parmer_list=list(parmer.keys())
+        key_dict={}
+        #缺省值
+        for i,v in enumerate(args):
+            k=parmer_list[i]
+            key_dict[k]=v
+        #位置参数
+        key_dict.update(kwargs)
+        #处理缺省值
+        for k in parmer.keys():
+            if k in key_dict.keys():
+                key_dict[k]=parmer[k].default
+        #固定排序
+        key=tuple(sorted(key_dict.items()))
+
+        if key not in local_dict.keys():
+            rest=fn(*args,**kwargs)
+            local_dict[key]=rest
+        return local_dict[key]
+    return wrapper
+
+def logger(fn):
+    @wraps(fn)
+    def wrapper(*args,**kwargs):
+        strat=datetime.datetime.now()
+        rest=fn(*args,**kwargs)
+        time.sleep(3)
+        lasttime=(datetime.datetime.now()-strat).total_seconds()
+        print(lasttime)
+        return rest
+    return wrapper
+
+
+@logger
+@m_cathe
+def add(x:int,y:int)->int:
+    ret=x+y
+    return ret
+
+
+print(add(3,4))
+
 
 
 
