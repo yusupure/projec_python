@@ -403,62 +403,73 @@ print_tree2(heap_set(origin,lenght))
 print('*'*90)
 print()
 print('自检缓冲区')
-#自检缓冲区
 import inspect
-import datetime
 from functools import wraps
+import datetime
 import time
-def m_cathe(fn):
+def m_cath(fn):
     local_dict={}
     @wraps(fn)
     def wrapper(*args,**kwargs):
-        print(args,kwargs)
-        res=fn(*args,**kwargs)
+        #清理缓存
+        ek=[]
+        for k,(_,ts) in local_dict.items():
+            if datetime.datetime.now().timestamp()-ts >5:
+                ek.append(k)
+        for k in ek:
+            local_dict.pop(k)
+        #获取函数内容
         sig=inspect.signature(fn)
         parmer=sig.parameters
         parmer_list=list(parmer.keys())
         key_dict={}
-        #缺省值
+        #处理缺省值
         for i,v in enumerate(args):
             k=parmer_list[i]
             key_dict[k]=v
         #位置参数
         key_dict.update(kwargs)
-        #处理缺省值
-        for k in parmer.keys():
-            if k in key_dict.keys():
-                key_dict[k]=parmer[k].default
-        #固定排序
-        key=tuple(sorted(key_dict.items()))
 
-        if key not in local_dict.keys():
-            rest=fn(*args,**kwargs)
-            local_dict[key]=rest
+        #整理匹配缺省值
+        for k in parmer.keys():
+            if k not in key_dict:
+                key_dict[k]=parmer[k].default
+        #有序排序
+        key=tuple(sorted(key_dict.items()))
+        print(key)
+        #输出参数
+        if key not in local_dict:
+            res = fn(*args, **kwargs)
+            local_dict[key]=(res,datetime.datetime.now().timestamp())
         return local_dict[key]
     return wrapper
 
+#测试时间
 def logger(fn):
     @wraps(fn)
-    def wrapper(*args,**kwargs):
-        strat=datetime.datetime.now()
-        rest=fn(*args,**kwargs)
-        time.sleep(3)
-        lasttime=(datetime.datetime.now()-strat).total_seconds()
-        print(lasttime)
-        return rest
-    return wrapper
-
+    def wapper(*args,**kwargs):
+        start=datetime.datetime.now()
+        res=fn(*args,**kwargs)
+        entime=(datetime.datetime.now()-start).total_seconds()
+        print(entime)
+        return res
+    return wapper
 
 @logger
-@m_cathe
-def add(x:int,y:int)->int:
-    ret=x+y
-    return ret
+@m_cath
+def add(x,y=5):
+    #time.sleep(3)
+    res=x+y
+    return res
 
+print(add(4))
 
-print(add(3,4))
-
-
+# time.sleep(6)
+#
+# print(add(4,5))
+# print(add(4,y=5))
+# print(add(4,5))
+# print(add(4,5))
 
 
 
