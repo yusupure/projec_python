@@ -1,0 +1,87 @@
+import inspect
+from functools import wraps
+import datetime
+import time
+
+
+def m_catch(fn):
+    local_dict={}
+    @wraps(fn)
+    def wrapper(*args,**kwargs):
+        def mon_del():
+            timelist = []
+            # 处理用户使用缓存，并根据时差进清理
+            for k, (_, v) in local_dict.items():
+                if (datetime.datetime.now().timestamp() - v) >= 5:
+                    timelist.append(k)
+            for t in timelist:
+                local_dict.pop(t)
+
+        mon_del()
+
+        def set_mon(args, kwargs):
+            # 开始缓存
+            print(args, kwargs)
+            key_dict = {}
+            sig = inspect.signature(fn)
+            parmer = sig.parameters
+            parmer_list = list(parmer.keys())
+            # 缺省值
+            for i, v in enumerate(args):
+                k = parmer_list[i]
+                key_dict[k] = v
+            # 位置参数
+            key_dict.update(kwargs)
+            # 处理缺省值
+            for k in parmer.keys():
+                if k not in key_dict:
+                    key_dict[k] = parmer[k].default
+            # 转换有序字典
+            key = tuple(sorted(key_dict.items()))
+            return key
+
+        key = set_mon(args, kwargs)
+
+        if key not in local_dict:
+            rest=fn(*args,**kwargs)
+            local_dict[key]=(rest,datetime.datetime.now().timestamp())
+        return local_dict[key]
+    return wrapper
+
+
+#计算时间执行过程
+def timesheet(fn):
+    @wraps(fn)
+    def warpper(*args,**kwargs):
+        start=datetime.datetime.now()
+        bt=fn(*args,**kwargs)
+        endtime=(datetime.datetime.now()-start).total_seconds()
+        print(endtime)
+        return bt
+    return warpper
+
+@timesheet
+@m_catch
+def add(x:int,y:int)->int:
+    '''
+
+    :param x:
+    :param y:
+    :return:
+    '''
+    res=x+y
+    time.sleep(3)
+    return res
+
+print(add(4,5))
+print(add(x=4,y=5))
+print(add(4,y=5))
+print(add(y=5,x=4))
+
+time.sleep(7)
+print('*'*10)
+
+print(add(4,5))
+print(add(x=4,y=5))
+print(add(4,y=5))
+print(add(y=5,x=4))
