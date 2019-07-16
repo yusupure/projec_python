@@ -1,0 +1,48 @@
+print('公共字符串1')
+str1='abcdefg'
+str2='efgabcd'
+lenstr1=len(str1)
+lenstr2=len(str2)
+maxindex=0
+p=0
+xbs=[[0 for j in range(lenstr1+2)]for i in range(lenstr2+2)]
+for i in range(lenstr1):
+    for j in range(lenstr2):
+        if str1[i]==str2[j]:
+            xbs[i+1][j+1]=xbs[i][j]+1
+        if xbs[i+1][j+1]>maxindex:
+            maxindex=xbs[i+1][j+1]
+            p+=1
+
+print(str1[p-maxindex:p])
+
+print('公共字符串2')
+def bbk(str1,str2):
+    for i in range(lenstr1,0,-1):
+        for j in range(0,lenstr2-i+1):
+            res1=str1[j:i+j]
+            #print(res1)
+            if str2.find(res1)>-1:
+                 return res1
+print(bbk(str1,str2))
+
+print('公共字符串3')
+def bbd(str1,str2):
+    b=[]
+    maxindex=0
+    indexx=0
+    for i,x in enumerate(str1):
+        b.append([])
+        for j,y in enumerate(str2):
+            if x!=y:
+                b[i].append(0)
+            else:
+                if i==0 or j==0:
+                    b[i].append(1)
+                else:
+                    b[i].append(b[i-1][j-1]+1)
+                    if b[i][j]>maxindex:
+                        maxindex=b[i][j]
+                        indexx=j
+                        indexx+=1
+    print(str2[indexx-maxindex:indexx])
