@@ -28,3 +28,10 @@ print(p.parent)
 # xd=p.parents#把当前文件夹内一级一级往前迭代
 # for x in xd:
 #     print(x)
+
+p=Path('D:/pypj/pj_oadata/test.txt')
+直接打开并提取内容及写入内容
+•.read_text: 以文本模式打开路径并并以字符串形式返回内容。
+•.read_bytes: 以二进制/字节模式打开路径并以字节串的形式返回内容。
+•.write_text: 打开路径并向其写入字符串数据
+•.write_bytes: 以二进制/字节模式打开路径并向其写入数据。
