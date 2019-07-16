@@ -1,0 +1,50 @@
+print('*'*90)
+print()
+print('堆排序')
+
+def print_tree(origin):
+    lcx=2**h-1
+    for i in range(1,lcx+1):
+        times=2**(i-1)
+        for j in range(times-1,times*2-1):
+            if i<j:break
+            print('{:^{}}'.format(origin[1:][j],lcx*2),end=' '*2)
+        print()
+        lcx//=2
+
+def print_tree2(origin):
+    lcx = 2 ** h - 1
+    index=1
+    for i in range(h):
+        for j in range(2**i):
+            print('{:^{}}'.format(origin[index],lcx*2),end=' '*2)
+            index += 1
+            if index < j: break
+        print()
+        lcx//=2
+
+origin = [0,30, 20, 80, 40, 50, 10, 60, 70, 90]
+lenght=len(origin)-1
+h=lenght//2
+
+def heap_sort(origin,lenght,i):
+    while 2*i<lenght:
+        lc=2*i
+        maxd=lc
+        if lc<lenght and origin[maxd+1]>origin[lc]:
+            maxd=lc+1
+        if origin[maxd]>origin[i]:
+            origin[maxd] ,origin[i]=origin[i],origin[maxd]
+            i=maxd
+        else:
+            break
+    return origin
+
+
+def heap_set(origin,lenght):
+    for i in range(lenght//2,0,-1):
+        heap_sort(origin,lenght,i)
+    return origin
+
+
+print_tree2(heap_set(origin,lenght))
