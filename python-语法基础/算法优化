@@ -472,4 +472,51 @@ print(add(4))
 # print(add(4,5))
 
 
+print('*'*90)
+print()
+print('base64加解密')
+import string
+from collections import OrderedDict
+ac=string.ascii_uppercase+string.ascii_lowercase+string.digits+'+'+'/'
+ac=str.encode(ac)
+#print(ac)
+bs=OrderedDict(zip(ac,range(64)))
+print(bs)
+#开始加密
+def base64(src):
+    res=bytearray()
+    r=0
+    leght=len(src)
+    for offset in range(0,leght,3):
+        if offset+3<leght:
+            tp=src[offset:offset+3]
+        else:
+            tp=src[offset:]
+            r=3-len(tp)
+            tp=tp+'\x00'*r
+        b=int.from_bytes(tp.encode(),'big')
+        for i in range(18,-1,-6):
+            index=b>>i & 0x3F
+            res.append(ac[index])
+        for j in range(1,r+1):
+            res[-j]=0x3D
+    return bytes(res)
+print(base64('abcd'))
+base64_t=base64('abcd')
+#开始解密
 
+def base64deconde(src:bytes):
+    res=bytearray()
+    leght=len(src)
+    trip=4
+    for i in range(0,leght,trip):
+        tmp=0x00
+        tp=src[i:i+trip]
+        for j in range(4):
+            index=bs.get(tp[-j-1])
+            if index is not None:
+                tmp+=index<<j*6
+        res.extend(tmp.to_bytes(3,'big'))
+    return bytes(res.rstrip(b'\x00'))
+
+print(base64deconde(base64_t).decode())
