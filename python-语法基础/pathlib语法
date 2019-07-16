@@ -24,3 +24,7 @@ p=Path('D:/pypj/pj_oadata/')
 #p.mkdir()生成文件夹
 #p.rmdir()#删除文件夹
 print(p.parent)
+#print(p.parent)#当前上一级文件夹
+# xd=p.parents#把当前文件夹内一级一级往前迭代
+# for x in xd:
+#     print(x)
