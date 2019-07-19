@@ -19,7 +19,7 @@ def print_tree2(origin):
         for j in range(2**i):
             print('{:^{}}'.format(origin[index],lcx*2),end=' '*2)
             index += 1
-            if index < j: break
+            if index>leght: break
         print()
         lcx//=2
 
