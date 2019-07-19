@@ -7,7 +7,7 @@ def print_tree(origin):
     for i in range(1,lcx+1):
         times=2**(i-1)
         for j in range(times-1,times*2-1):
-            if i<j:break
+            if j>=leght:break
             print('{:^{}}'.format(origin[1:][j],lcx*2),end=' '*2)
         print()
         lcx//=2
