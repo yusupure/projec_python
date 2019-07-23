@@ -1,0 +1,138 @@
+import os
+# dest={}
+# with open('D:\\pypj\\pj_oadata\\test.txt','r') as f:
+#         x=f.read().split()
+#         for i in x:
+#             if i not in dest:
+#                 dest[i]=1
+#             else:
+#                 dest[i]+=1
+# print(dest)
+
+from pathlib import Path
+#打开文件方式
+#p=Path('D:/pypj/pj_oadata/test.txt')
+#with p.open(mode='r') as f:
+# print(p.read_text())
+# print(p.write_text('ksajkdjfkajskldjfasjdkfaksdjfklajsdklf'))
+# print(p.read_text())
+#
+# p=Path('D:/pypj/pj_oadata/')
+#p=p /'333'
+# print(p.cwd())#获取当前路径
+# print(p.absolute())#获取当前路径
+# print(p.stat())#获取文件内容
+# print(p.name)#获取文件信息
+# print(p.stem)#获取文件名称
+# print(p.suffix)#获取后缀
+# print(p.anchor)#获取根目录
+# print(p.exists())#判断是否文件夹还是文件返回布尔值
+# print(p.is_dir())#是否文件夹
+# print(p.is_file())#是否文件
+# x=p.iterdir()#文件夹内所有文件生成迭代，需要循环迭代显示
+# for i in x:
+#     print(i)
+#p.mkdir(p / 'abce')#生成文件夹
+#p.rmdir()#删除文件夹
+#print(p.parent)#当前上一级文件夹
+# xd=p.parents#把当前文件夹内一级一级往前迭代
+# for x in xd:
+#     print(x)
+
+
+import csv
+#打开文件
+# with open('test.csv') as f:
+#     x=csv.reader(f)
+#     for i in x:
+#         print(i)
+#写入文件
+# s=[['name',123,'abc','cdf','fag'],['ddt',123,'abc','cdf','fag']]
+# with open('test.csv','w',encoding='utf-8',newline='') as d:
+#     csv_w=csv.writer(d,dialect='excel')
+#     for z in s:
+#         if z:
+#             csv_w.writerow(z)
+#字段写入方式
+# dict_name=['name','bat']
+# dict_nr=[{'name':123,'bat':46},{'name':123,'bat':46}]
+# with open('test.csv','w',encoding='utf-8',newline='') as d:
+#     csv_w=csv.DictWriter(d,dict_name)
+#     csv_w.writeheader()
+#     csv_w.writerows(dict_nr)
+#读取方式
+# with open('test.csv') as f:
+#     x=csv.DictReader(f)
+#     for i in x:
+#         print(i['name'])
+
+
+
+import shutil
+#shutil.copyfileobj(文件1，文件2)：将文件1的数据覆盖copy给文件2。
+#f1 = open("1.txt",encoding="utf-8")
+#f2 = open("2.txt","w",encoding="utf-8")
+#shutil.copyfileobj(f1,f2)
+
+#shutil.copyfile(文件1，文件2)：不用打开文件，直接用文件名进行覆盖copy。
+#shutil.copyfile("1.txt","3.txt")
+
+#shutil.copymode(文件1，文件2)：之拷贝权限，内容组，用户，均不变
+# def copymode(src,dst):
+#     """copy mode bits from src to dst"""
+#     if hasattr(os,'chmod'):
+#         st = os.stat(stc)
+#         mode = stat.S_IMODE(st.st_mode)
+#         os.chmod(dst,mode)
+
+#shutil.copystat(文件1，文件)：只拷贝了权限。
+# def copystat(src,dst):
+#     """将所有的状态信息(模式位、时间、时间、标志)从src复制到dst"""
+#     st = os.stat(src)
+#     mode = stat.S_IMODE(st.st_mode)
+#     if hasattr(os, 'utime'):
+#         os.utime(dst,(st.st_atime,st.st_mtime))
+#     if hasattr(os, 'chmod')
+#         os.chmod(dst,mode)
+#     if hasattr(os, 'chflags') and hasattr(st,'st_flags'):
+#         try:
+#             os.chflags(dst, st.st_flags)
+#         except OSError,why:
+#             for err in 'EOPNOTSUPP', 'ENOTSUP':
+#                 if hasattr(errno,err) and why.errno == getattr(errno, err):
+#                     break
+#                 else:
+#                     raise
+
+#shutil.copy(文件1，文件2)：拷贝文件和权限都进行copy
+#shutil.copy2(文件1，文件2)：拷贝了文件和状态信息
+# def copy(src,dst):
+#     """copy data and mode bits ("cp src dst")
+#     The destination may be a directory.
+#     """
+#     if os.path.isdir(dst):
+#         dst = os.path.join(dst,os.path.basename(src))
+#         shutil.copyfile(src,dst)
+#         shutil.copymode(src,dst)
+
+#shutil.copytree(源目录，目标目录)：可以递归copy多个目录到指定目录下。
+#shutil.ignore_patterns(*patterns)
+#shutil.copytree(src, dst, symlinks=False, ignore=None)
+
+#shutil.rmtree(目标目录)：可以递归删除目录下的目录及文件。
+#shutil.move(源文件，指定路径)：递归移动一个文件
+#shutil.make_archive()：可以压缩，打包文件
+#shutil.make_archive("shutil_archive_test","zip","D:\新建文件夹 (2)")
+#shutil 对压缩包的处理是调用 ZipFile 和 TarFile 两个模块来进行的，详细
+# import zipfile
+# 
+# # 压缩
+# z = zipfile.ZipFile('laxi.zip', 'w')
+# z.write('a.log')
+# z.write('data.data')
+# z.close()
+# 
+# # 解压
+# z = zipfile.ZipFile('laxi.zip', 'r')
+# z.extractall()
+# z.close()
