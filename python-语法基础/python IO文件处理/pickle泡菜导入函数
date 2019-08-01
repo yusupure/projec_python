@@ -1,0 +1,22 @@
+#导入序列化与反序列化
+import pickle
+class AA():
+    def __init__(self):
+        self.aa='cccc'
+    def show(self):
+        print(self.aa)
+        return self.aa
+xx=AA()
+
+a=['abcdefg']
+with open('pickletest','wb')as f:
+    pickle.dump(AA(),f)
+with open('pickletest','rb')as f:
+    cd=pickle.load(f)
+    cd1=AA()
+    print(cd1.show())
+
+#pickle.dump(obj, file, [,protocol])将obj对象序列化存入已经打开的file中。必须为WB
+#pickle.load(file)将file中的对象序列化读出
+#pickle.dumps(obj[, protocol])将obj对象序列化为string形式，而不是存入文件中
+#pickle.loads(string)从string中读出序列化前的obj对象。
