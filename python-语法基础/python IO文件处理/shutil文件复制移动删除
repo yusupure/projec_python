@@ -1,0 +1,56 @@
+import shutil
+#shutil.copyfileobj(文件1，文件2)：将文件1的数据覆盖copy给文件2。
+#f1 = open("1.txt",encoding="utf-8")
+#f2 = open("2.txt","w",encoding="utf-8")
+#shutil.copyfileobj(f1,f2)
+
+#shutil.copyfile(文件1，文件2)：不用打开文件，直接用文件名进行覆盖copy。
+#shutil.copyfile("1.txt","3.txt")
+
+#shutil.copymode(文件1，文件2)：之拷贝权限，内容组，用户，均不变
+# def copymode(src,dst):
+#     """copy mode bits from src to dst"""
+#     if hasattr(os,'chmod'):
+#         st = os.stat(stc)
+#         mode = stat.S_IMODE(st.st_mode)
+#         os.chmod(dst,mode)
+
+#shutil.copystat(文件1，文件)：只拷贝了权限。
+# def copystat(src,dst):
+#     """将所有的状态信息(模式位、时间、时间、标志)从src复制到dst"""
+#     st = os.stat(src)
+#     mode = stat.S_IMODE(st.st_mode)
+#     if hasattr(os, 'utime'):
+#         os.utime(dst,(st.st_atime,st.st_mtime))
+#     if hasattr(os, 'chmod')
+#         os.chmod(dst,mode)
+#     if hasattr(os, 'chflags') and hasattr(st,'st_flags'):
+#         try:
+#             os.chflags(dst, st.st_flags)
+#         except OSError,why:
+#             for err in 'EOPNOTSUPP', 'ENOTSUP':
+#                 if hasattr(errno,err) and why.errno == getattr(errno, err):
+#                     break
+#                 else:
+#                     raise
+
+#shutil.copy(文件1，文件2)：拷贝文件和权限都进行copy
+#shutil.copy2(文件1，文件2)：拷贝了文件和状态信息
+# def copy(src,dst):
+#     """copy data and mode bits ("cp src dst")
+#     The destination may be a directory.
+#     """
+#     if os.path.isdir(dst):
+#         dst = os.path.join(dst,os.path.basename(src))
+#         shutil.copyfile(src,dst)
+#         shutil.copymode(src,dst)
+
+#shutil.copytree(源目录，目标目录)：可以递归copy多个目录到指定目录下。
+#shutil.ignore_patterns(*patterns)
+#shutil.copytree(src, dst, symlinks=False, ignore=None)
+
+#shutil.rmtree(目标目录)：可以递归删除目录下的目录及文件。
+#shutil.move(源文件，指定路径)：递归移动一个文件
+#shutil.make_archive()：可以压缩，打包文件
+#shutil.make_archive("shutil_archive_test","zip","D:\新建文件夹 (2)")
+#shutil 对压缩包的处理是调用 ZipFile 和 TarFile 两个模块来进行的，详细
