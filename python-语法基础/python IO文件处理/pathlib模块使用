@@ -1,0 +1,43 @@
+from pathlib import Path
+#打开文件方式
+p=Path('D:/pypj/pj_oadata/')
+#with p.open(mode='r') as f:
+# print(p.read_text())
+# print(p.write_text('ksajkdjfkajskldjfasjdkfaksdjfklajsdklf'))
+# print(p.read_text())
+#
+# p=Path('D:/pypj/pj_oadata/')
+#p=p /'333'
+# print(p.cwd())#获取当前路径
+# print(p.absolute())#获取当前路径
+# print(p.stat())#获取文件内容
+# print(p.name)#获取文件信息
+# print(p.stem)#获取文件名称
+# print(p.suffix)#获取后缀
+# print(p.anchor)#获取根目录
+# print(p.exists())#判断是否文件夹还是文件返回布尔值
+# print(p.is_dir())#是否文件夹
+# print(p.is_file())#是否文件
+#x=p.iterdir()#文件夹内所有文件生成迭代，需要循环迭代显示
+# for i in x:
+#     print(i)
+#p.mkdir(p / 'abce')#生成文件夹
+#p.rmdir()#删除文件夹
+#print(p.parent)#当前上一级文件夹
+# xd=p.parents#把当前文件夹内一级一级往前迭代
+# for x in xd:
+#     print(x)
+
+#迭代提取所有文件夹及文件夹内
+# for i in p.parents[len(p.parents)-1].iterdir():
+#     if i.is_dir():
+#         for j in i.iterdir():
+#             print(j)
+#     else:
+#         if i.is_file():
+#             print(i)
+#         else:
+#             print('NO')
+# from collections import Counter
+# a=Counter([j.suffix for j in p.iterdir()])
+# print(a)
