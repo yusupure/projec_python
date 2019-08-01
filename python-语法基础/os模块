@@ -1,0 +1,10 @@
+import os
+# dest={}
+# with open('D:\\pypj\\pj_oadata\\test.txt','r') as f:
+#         x=f.read().split()
+#         for i in x:
+#             if i not in dest:
+#                 dest[i]=1
+#             else:
+#                 dest[i]+=1
+# print(dest)
