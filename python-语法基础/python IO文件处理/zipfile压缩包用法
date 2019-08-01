@@ -1,0 +1,27 @@
+# import zipfile
+#
+# # 压缩
+# z = zipfile.ZipFile('laxi.zip', 'w')
+# z.write('a.log')
+# z.write('data.data')
+# z.close()
+#
+# # 解压
+# z = zipfile.ZipFile('laxi.zip', 'r')
+# z.extractall()
+# z.close()
+
+
+#ini 文件读取配置文件读取
+# from configparser import ConfigParser
+#
+# cfp=ConfigParser()
+# cfp.read('test.ini')#提取文件
+# #print(cfp.sections())#提取标题KEY
+# #print(cfp.options('test'))#获取KEY
+# #print(cfp.get('test','mysql'))#获取内容的KEY 中KEY2的内容
+# #for k,v in cfp.items('test'):
+# #    print(k,v)
+# for k in cfp.sections():
+#     for k1,v1 in cfp.items(k):
+#         print(k1,v1)
