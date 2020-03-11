@@ -1,0 +1,17 @@
+### 其他py文件对Module的引用
+引用python包的语法主要有两种
+
+import sound
+或者
+
+from sound.formats import func
+对于第一种写法，表明引入的是整个module，接下来可以使用sound.format.func， 对于第二种写法，from后面必须精确到某个py文件，import表示引入py文件中的某个对象（或是某个类和函数，当然python中函数也是对象）注意，这么写是相对路径，也就是说，能不能引入到你想要的包，和你当前py文件在哪个包很有关系，例如现在在echo.py中想引入formats/wavread.py中的func，必须这么写
+
+from ..formats.wavread import func
+func()
+参考了这篇博文后需要注意，含有相对路径的py文件是不能直接运行的（包括直接python echo.py或是在sublime中cntl + B等等方法），原因是直接执行python脚本会让该脚本的__name__值变成__main__会影响到相对路径的引用，报错__Attempted relative import in non-package__，因此，若是一定需要执行某脚本，必须手动的将当前目录的上层引入，代码如下
+
+import sys
+sys.path.append('../')
+from ..formats.wavread import func
+func()
